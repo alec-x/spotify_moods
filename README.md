@@ -3,7 +3,6 @@
 ## Functions
 ### Basic
 1. Read all songs from someone's liked list
-	a. May require them to have it in a playlist?
 2. Look up Spotify metadata on songs
 3. Group like songs together
 4. Create new playlist for user
