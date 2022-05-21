@@ -1,7 +1,4 @@
 # spotify_moods
-<<<<<<< HEAD
-# test
-=======
 
 ## Functions
 ### Basic
@@ -25,5 +22,4 @@ Deploy on heroku (servers for free)
 
 ### 2
 Use python for the whole thing and make an exe with tkinter/electron frontend
->>>>>>> 50d53d77c7eb176b13a7362cfdb628b97bef47ba
 
