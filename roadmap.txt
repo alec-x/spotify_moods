@@ -1,0 +1,12 @@
+Roadmap:
+1. Explore more methods of clustering similar songs together
+	-> Make playlist generation and just see how they perform
+2. Abstract everything into libraries
+
+3. put together front end/back end and deploy to heroku
+
+4. Clean everything up, automate build process... examine what to do next
+	-> Make login to spotify process make more sense
+	-> make UI more pretty
+	-> Offer more features in the web-app...
+	-> Feature to get song name by hovering over data point
