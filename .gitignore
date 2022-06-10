@@ -46,7 +46,7 @@ htmlcov/
 .nox/
 .coverage
 .coverage.*
-.cache
+api/*.cache
 nosetests.xml
 coverage.xml
 *.cover
@@ -133,7 +133,7 @@ dmypy.json
 
 # Secrets
 id.json
-.cache*
+api/*cache*
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
