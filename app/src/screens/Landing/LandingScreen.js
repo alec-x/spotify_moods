@@ -1,12 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Container, Button } from '@nextui-org/react';
 
 const LandingScreen = () => {
   return (
-    <div>
+    <Container xl={true} justify='center' alignItems='center'>
       <h1>LandingScreen</h1>
       <Link to="/search">Search</Link>
-    </div>
+      <Button bordered color="success">Click Me!</Button>
+    </Container>
   );
 };
 

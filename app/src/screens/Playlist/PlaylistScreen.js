@@ -1,8 +1,13 @@
+import { Container } from "@nextui-org/react";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const PlaylistScreen = () => {
   return (
-    <h1>PlaylistScreen</h1>
+    <Container>
+      <h1>PlaylistScreen</h1>
+      <Link to="/">LandingScreen</Link>
+    </Container>
   );
 };
 
