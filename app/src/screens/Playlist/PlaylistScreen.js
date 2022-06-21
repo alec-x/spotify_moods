@@ -49,16 +49,17 @@ const PlaylistScreen = () => {
           </Link>
         </Grid>
       </Grid.Container>
-      <div
-        // sm
-        css={{ scrollBehavior: 'smooth', overflowY: 'scroll' }}
+      {/* //* Figure out proper height for song list container */}
+      <Container
+        sm
+        css={{ scrollBehavior: 'smooth', overflowY: 'scroll', height: 800 }}
       >
         {Array(20)
           .fill(0)
           .map(() => (
             <SongCard />
           ))}
-      </div>
+      </Container>
       <Link to="/">LandingScreen</Link>
     </Container>
   );
