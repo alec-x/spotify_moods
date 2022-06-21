@@ -48,14 +48,17 @@ const PlaylistScreen = () => {
             </Row>
           </Link>
         </Grid>
-        <Container sm>
-          {Array(10)
-            .fill(0)
-            .map(() => (
-              <SongCard />
-            ))}
-        </Container>
       </Grid.Container>
+      <div
+        // sm
+        css={{ scrollBehavior: 'smooth', overflowY: 'scroll' }}
+      >
+        {Array(20)
+          .fill(0)
+          .map(() => (
+            <SongCard />
+          ))}
+      </div>
       <Link to="/">LandingScreen</Link>
     </Container>
   );

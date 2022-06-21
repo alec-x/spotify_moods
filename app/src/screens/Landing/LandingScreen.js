@@ -4,7 +4,7 @@ import { Container, Button } from '@nextui-org/react';
 
 const LandingScreen = () => {
   return (
-    <Container md justify='center' alignItems='center'>
+    <Container md>
       <h1>LandingScreen</h1>
       <Link to="/search">Search</Link>
       <Button bordered color="success">Click Me!</Button>
