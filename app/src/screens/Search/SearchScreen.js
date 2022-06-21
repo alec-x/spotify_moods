@@ -4,7 +4,7 @@ import { Container } from '@nextui-org/react';
 
 const SearchScreen = () => {
   return (
-    <Container>
+    <Container md>
       <h1>SearchScreen</h1>
       <Link to="/playlist">Playlist</Link>
     </Container>
