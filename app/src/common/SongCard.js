@@ -26,11 +26,13 @@ const SongCard = ({ title, artist, albumCover, alt, songLength, link }) => {
         <Row align="center">
           <Image
             alt="twice scientist album"
+            showSkeleton
             //alt=alt
             src={require('../images/twice_scientist.jpeg')}
             //src=albumCover
             width="64px"
             height="64px"
+
           />
           <Col css={{ ml: 5 }}>
             <Text css={{ fontSize: '$xl', fontWeight: 'bold', py: 0, my: 0 }}>
