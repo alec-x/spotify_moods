@@ -7,6 +7,11 @@ import { globalCss, createTheme, NextUIProvider } from '@nextui-org/react';
 
 const darkTheme = createTheme({
   type: 'dark',
+  theme: {
+    colors: {
+      spgreen: '#27AE60'
+    }
+  }
 });
 
 // Applied Global CSS style reset from

@@ -15,7 +15,7 @@ const SongCard = ({ title, artist, albumCover, alt, songLength, link }) => {
   return (
     <Card
       variant="shadow"
-      // isHoverable
+      isHoverable
       css={{
         my: 10,
         borderRadius: '10px',
