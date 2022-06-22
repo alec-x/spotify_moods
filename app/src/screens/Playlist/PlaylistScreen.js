@@ -3,12 +3,23 @@ import {
   Text,
   Row,
   Link as AddPlaylistLink,
-  Image,
   Grid,
 } from '@nextui-org/react';
+import { styled } from '@stitches/react';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import SongCard from '../../common/SongCard';
+import { IoIosArrowBack, IoIosSearch } from 'react-icons/io';
+import { MdPlaylistAdd } from 'react-icons/md';
+import LoadingDots from '../../common/LoadingDots';
+// import PlaylistView from './components/PlaylistView';
+
+const StyledLink = styled(Link, {
+  '&:hover': {
+    opacity: 0.8,
+  },
+});
+
+const PlaylistView = React.lazy(() => import('./components/PlaylistView'));
 
 const PlaylistScreen = () => {
   const [searchTerm, useSearchTerm] = useState('Scientist - Twice');
@@ -16,7 +27,10 @@ const PlaylistScreen = () => {
   return (
     <Container md css={{ marginTop: 10 }}>
       <Grid.Container alignItems="center">
-        <Grid xs={8} direction="row">
+        <Grid xs={8} direction="row" alignItems="center">
+          <StyledLink to="/search">
+            <IoIosArrowBack size={40} color={'white'} />
+          </StyledLink>
           <Text h2 css={{ opacity: '80%' }} weight="light">
             Mood Playlist on
           </Text>
@@ -26,39 +40,22 @@ const PlaylistScreen = () => {
         </Grid>
         <Grid xs={4} justify="flex-end">
           <AddPlaylistLink css={{ mr: 10, alignItems: 'center' }}>
-            {/* Temp Image for Placement */}
-            <Image
-              src={require('../../images/spotify_logo.png')}
-              alt="Test"
-              width={18}
-              height={18}
-            />
+            <MdPlaylistAdd size={25} color={'#27AE60'} />
             <Text>Add Playlist</Text>
           </AddPlaylistLink>
-          <Link to="/search">
+          <StyledLink to="/search">
             <Row align="center">
-              {/* Temp image for placement */}
-              <Image
-                src={require('../../images/spotify_logo.png')}
-                alt="Test"
-                width={18}
-                height={18}
-              />
+              <IoIosSearch size={22} color={'#27AE60'} />
               <Text>Search again</Text>
             </Row>
-          </Link>
+          </StyledLink>
         </Grid>
       </Grid.Container>
-      <div
-        // sm
-        css={{ scrollBehavior: 'smooth', overflowY: 'scroll' }}
-      >
-        {Array(20)
-          .fill(0)
-          .map(() => (
-            <SongCard />
-          ))}
-      </div>
+      {/* //* Figure out proper height for song list container */}
+      <React.Suspense fallback={<LoadingDots />}>
+        <LoadingDots />
+        {/* <PlaylistView /> */}
+      </React.Suspense>
       <Link to="/">LandingScreen</Link>
     </Container>
   );

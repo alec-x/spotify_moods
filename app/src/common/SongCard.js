@@ -15,22 +15,24 @@ const SongCard = ({ title, artist, albumCover, alt, songLength, link }) => {
   return (
     <Card
       variant="shadow"
-      // isHoverable
+      isHoverable
       css={{
         my: 10,
-        px: 5,
         borderRadius: '10px',
+        // mw: 250 //maxWidth
       }}
     >
-      <Card.Body>
+      <Card.Body css={{ py: 10, px: 20 }}>
         <Row align="center">
           <Image
             alt="twice scientist album"
+            showSkeleton
             //alt=alt
             src={require('../images/twice_scientist.jpeg')}
             //src=albumCover
             width="64px"
             height="64px"
+
           />
           <Col css={{ ml: 5 }}>
             <Text css={{ fontSize: '$xl', fontWeight: 'bold', py: 0, my: 0 }}>
@@ -42,7 +44,7 @@ const SongCard = ({ title, artist, albumCover, alt, songLength, link }) => {
               Twice
             </Text>
           </Col>
-          <Text css={{ mr: 10, '&:hover': { bottom: 20 } }}>3:14</Text>
+          <Text css={{ mr: 10 }}>3:14</Text>
           <Link
             href="https://google.com"
             target="_blank"
@@ -54,7 +56,7 @@ const SongCard = ({ title, artist, albumCover, alt, songLength, link }) => {
             <Image
               alt="open in spotify"
               src={require('../images/spotify_logo.png')}
-              css={{ mr: 10, '&:hover': { top: 20 } }}
+              css={{ mr: 10 }}
               width="32px"
               height="32px"
             />
