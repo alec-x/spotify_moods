@@ -8,13 +8,13 @@ import { globalCss, createTheme, NextUIProvider } from '@nextui-org/react';
 const darkTheme = createTheme({
   type: 'dark',
   theme: {
-    color: {
-      background: '#121217',
-    },
-  },
+    colors: {
+      spgreen: '#27AE60'
+    }
+  }
 });
 
-// Applied Global CSS style reset from 
+// Applied Global CSS style reset from
 // https://www.joshwcomeau.com/css/custom-css-reset/
 const globalCssReset = globalCss({
   '*': { boxSizing: 'border-box', margin: 0 },
@@ -22,24 +22,24 @@ const globalCssReset = globalCss({
   '*::after': { boxSizing: 'border-box' },
   html: { height: '100%' },
   body: { height: '100%', lineHeight: 1.5 },
-  img: {display: 'block', maxWidth: '100%'},
-  picture: {display: 'block', maxWidth: '100%'},
-  video: {display: 'block', maxWidth: '100%'},
-  canvas: {display: 'block', maxWidth: '100%'},
-  svg: {display: 'block', maxWidth: '100%'},
-  input: {font: 'inherit'},
-  button: {font: 'inherit'},
-  textarea: {font: 'inherit'},
-  select: {font: 'inherit'},
-  p: { overflowWrap: 'break-word'},
-  h1: { overflowWrap: 'break-word'},
-  h2: { overflowWrap: 'break-word'},
-  h3: { overflowWrap: 'break-word'},
-  h4: { overflowWrap: 'break-word'},
-  h5: { overflowWrap: 'break-word'},
-  h6: { overflowWrap: 'break-word'},
-  '#root': {isolation: 'isolate'},
-  '#__next': {isolation: 'isolate'}
+  img: { display: 'block', maxWidth: '100%' },
+  picture: { display: 'block', maxWidth: '100%' },
+  video: { display: 'block', maxWidth: '100%' },
+  canvas: { display: 'block', maxWidth: '100%' },
+  svg: { display: 'block', maxWidth: '100%' },
+  input: { font: 'inherit' },
+  button: { font: 'inherit' },
+  textarea: { font: 'inherit' },
+  select: { font: 'inherit' },
+  p: { overflowWrap: 'break-word' },
+  h1: { overflowWrap: 'break-word' },
+  h2: { overflowWrap: 'break-word' },
+  h3: { overflowWrap: 'break-word' },
+  h4: { overflowWrap: 'break-word' },
+  h5: { overflowWrap: 'break-word' },
+  h6: { overflowWrap: 'break-word' },
+  '#root': { isolation: 'isolate' },
+  '#__next': { isolation: 'isolate' },
 });
 
 function App() {

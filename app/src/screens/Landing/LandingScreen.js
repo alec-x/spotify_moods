@@ -4,10 +4,12 @@ import { Container, Button } from '@nextui-org/react';
 
 const LandingScreen = () => {
   return (
-    <Container xl={true} justify='center' alignItems='center'>
-      <h1>LandingScreen</h1>
+    <Container md css={{height:'100vh'}}>
+      <h1>Moodify</h1>
       <Link to="/search">Search</Link>
-      <Button bordered color="success">Click Me!</Button>
+      <Container direction='row' justify='center' align='center'>
+        <Button css={{ top:200 }} rounded color="success">Connect to Spotify!</Button>
+      </Container>
     </Container>
   );
 };
