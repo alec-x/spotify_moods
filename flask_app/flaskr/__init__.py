@@ -30,9 +30,12 @@ def create_app():
     def home():
         return "This is the landing page"
     """
-
     @app.route('/')
     def home():
+        return "Welcome to the spotify moods API"
+
+    @app.route('/sign-in')
+    def sign_in():
         if not session.get('uuid'):
             # Step 1. Visitor is unknown, give random ID
             session['uuid'] = str(uuid.uuid4())
@@ -53,7 +56,7 @@ def create_app():
         
         return 'this is the landing page'
 
-    @app.route('/sign_out')
+    @app.route('/sign-out')
     def sign_out():
         try:
             # Remove the CACHE file (.cache-test) so that a new user can authorize.
@@ -63,7 +66,7 @@ def create_app():
             print ("Error: %s - %s." % (e.filename, e.strerror))
         return redirect('/')
 
-    @app.route('/all_songs')
+    @app.route('/all-songs')
     def all_songs():
         cache_handler = spotipy.cache_handler.CacheFileHandler(cache_path=session_cache_path())
         auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
@@ -73,7 +76,7 @@ def create_app():
 
         sp = spotipy.Spotify(auth_manager=auth_manager)        
         results = moods.get_all_songs(sp)
-        return {results}
+        return {"data": results}
 
     return app
 
