@@ -4,9 +4,13 @@ import { Container, Button } from '@nextui-org/react';
 import { useSignInQuery } from '../../services/spotify';
 
 const LandingScreen = () => {
-  const { data } = useSignInQuery();
-  console.log(data);
-
+  const { data, loading, error} = useSignInQuery();
+  if (data) {
+    window.open(data.data, '_blank');
+    window.focus();
+  }
+  console.log(data, loading, error);
+  
   return (
     <Container md css={{height:'100vh'}}>
       <h1>Moodify</h1>
