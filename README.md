@@ -22,3 +22,5 @@ Deploy on heroku (servers for free)
 ### 2
 Use python for the whole thing and make an exe with tkinter/electron frontend
 
+### 3
+Display song stats on web page on a radar graph

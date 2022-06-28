@@ -1,6 +1,8 @@
 
+import json
 import math
 import numpy as np
+import os
 
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
@@ -10,6 +12,17 @@ import spotipy
 import umap
 import warnings
 warnings.filterwarnings('ignore')
+
+
+def export_client_id(secrets_path: str) -> None:
+        with open(secrets_path, 'r') as f:
+            data = json.load(f)
+
+        os.environ["SPOTIPY_CLIENT_ID"] = data["client_id"]
+        os.environ["SPOTIPY_CLIENT_SECRET"] = data["client_secret"]
+        os.environ["SPOTIPY_REDIRECT_URI"] = r'http://localhost:8080'
+
+        return None
 
 def get_all_songs(sp_client: spotipy.Spotify) -> list[dict]:
 
