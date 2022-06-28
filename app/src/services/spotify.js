@@ -2,12 +2,12 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const spotifyAPI = createApi({
   reducerPath: 'spotifyAPI',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://pokeapi.co/api/v2/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://localhost:8000/' }),
   endpoints: (builder) => ({
-    useSignIn: builder.query({
-      query: () => `signIn`,
+    signIn: builder.query({
+      query: () => `sign-in`,
     }),
   }),
 });
 
-export const { useSignIn } = spotifyAPI;
+export const { useSignInQuery } = spotifyAPI;

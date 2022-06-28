@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Button } from '@nextui-org/react';
-import { useSignIn } from '../../services/spotify';
+import { useSignInQuery } from '../../services/spotify';
 
 const LandingScreen = () => {
-  const { data, error, isLoading } = useSignIn();
+  const { data } = useSignInQuery();
   console.log(data);
 
   return (
