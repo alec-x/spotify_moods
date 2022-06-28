@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Button } from '@nextui-org/react';
 import { useSignInQuery } from '../../services/spotify';
 
 const LandingScreen = () => {
+  const [skip, setSkip] = useState(true);
   const { data, loading, error, refetch } = useSignInQuery('', {
-    skip: true,
+    skip
   });
 
   const handleClick = () => {
-    refetch();
+    setSkip(false);
   };
 
   if (data) {
