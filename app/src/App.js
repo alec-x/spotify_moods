@@ -4,14 +4,16 @@ import LandingScreen from './screens/Landing/LandingScreen';
 import MoodPlaylistScreen from './screens/Playlist/PlaylistScreen';
 import SearchScreen from './screens/Search/SearchScreen';
 import { globalCss, createTheme, NextUIProvider } from '@nextui-org/react';
+import { store } from './store';
+import { Provider } from 'react-redux';
 
 const darkTheme = createTheme({
   type: 'dark',
   theme: {
     colors: {
-      spgreen: '#27AE60'
-    }
-  }
+      spgreen: '#27AE60',
+    },
+  },
 });
 
 // Applied Global CSS style reset from
@@ -45,13 +47,15 @@ const globalCssReset = globalCss({
 function App() {
   globalCssReset();
   return (
-    <NextUIProvider theme={darkTheme}>
-      <Routes>
-        <Route path="/" element={<LandingScreen />} />
-        <Route path="/search" element={<SearchScreen />} />
-        <Route path="/playlist" element={<MoodPlaylistScreen />} />
-      </Routes>
-    </NextUIProvider>
+    <Provider store={store}>
+      <NextUIProvider theme={darkTheme}>
+        <Routes>
+          <Route path="/" element={<LandingScreen />} />
+          <Route path="/search" element={<SearchScreen />} />
+          <Route path="/playlist" element={<MoodPlaylistScreen />} />
+        </Routes>
+      </NextUIProvider>
+    </Provider>
   );
 }
 
