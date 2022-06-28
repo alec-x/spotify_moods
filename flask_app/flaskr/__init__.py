@@ -4,6 +4,7 @@ from flask_session import Session
 import spotify_moods.moods as moods
 import uuid
 import spotipy
+from flask import jsonify
 
 caches_folder = './.spotify_caches/'
 if not os.path.exists(caches_folder):
@@ -51,8 +52,10 @@ def create_app():
 
         if not auth_manager.validate_token(cache_handler.get_cached_token()):
             # Step 2. Display sign in link when no token
-            auth_url = auth_manager.get_authorize_url()
-            return f'<h2><a href="{auth_url}">Sign in</a></h2>'
+            auth_url = {"data": auth_manager.get_authorize_url()}
+            response = jsonify(auth_url)
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            return response
         
         return 'this is the landing page'
 
