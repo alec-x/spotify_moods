@@ -4,8 +4,8 @@ import { Container, Button } from '@nextui-org/react';
 import { useSignInQuery } from '../../services/spotify';
 
 const LandingScreen = () => {
-  const { data, loading, error, refetch } = useSignInQuery({
-    enabled: false, //disable this query from automatically running
+  const { data, loading, error, refetch } = useSignInQuery('', {
+    skip: true,
   });
 
   const handleClick = () => {
@@ -13,10 +13,10 @@ const LandingScreen = () => {
   };
 
   if (data) {
-    window.open(data, '_blank');
+    window.open(data.data, '_self');
     window.focus();
   }
-  console.log('sign-in', data, loading, error);
+  console.log('sign-in:', data, loading, error);
 
   return (
     <Container md css={{ height: '100vh' }}>
