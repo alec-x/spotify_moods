@@ -25,10 +25,11 @@ const LandingScreen = () => {
       <Link to="/search">Search</Link>
       <Container direction="row" justify="center" align="center">
         <Button
-          css={{ top: 200 }}
+          css={{ top: 200, fontWeight: "bold" }}
           rounded
           color="success"
           onPress={handleClick}
+          size="lg"
         >
           Connect to Spotify!
         </Button>
