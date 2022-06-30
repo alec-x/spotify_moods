@@ -16,26 +16,19 @@ def session_cache_path():
 def create_app():
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(
-        SECRET_KEY='dev'
-    )
+    app.config.from_mapping(SECRET_KEY='dev')
 
     # ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)
     except OSError:
         pass
-    """
-    # landing
-    @app.route('/')
-    def home():
-        return "This is the landing page"
-    """
-    @app.route('/')
+    
+    @app.route('/api/')
     def home():
         return "Welcome to the spotify moods API"
 
-    @app.route('/sign-in')
+    @app.route('/api/sign-in')
     def sign_in():
         if not session.get('uuid'):
             # Step 1. Visitor is unknown, give random ID
@@ -54,12 +47,12 @@ def create_app():
             # Step 2. Display sign in link when no token
             auth_url = {"data": auth_manager.get_authorize_url()}
             response = jsonify(auth_url)
-            response.headers.add('Access-Control-Allow-Origin', '*')
+            response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
             return response
         
         return 'this is the landing page'
 
-    @app.route('/sign-out')
+    @app.route('/api/sign-out')
     def sign_out():
         try:
             # Remove the CACHE file (.cache-test) so that a new user can authorize.
@@ -69,7 +62,7 @@ def create_app():
             print ("Error: %s - %s." % (e.filename, e.strerror))
         return redirect('/')
 
-    @app.route('/all-songs')
+    @app.route('/api/all-songs')
     def all_songs():
         cache_handler = spotipy.cache_handler.CacheFileHandler(cache_path=session_cache_path())
         auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
