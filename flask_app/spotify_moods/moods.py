@@ -20,7 +20,7 @@ def export_client_id(secrets_path: str) -> None:
 
         os.environ["SPOTIPY_CLIENT_ID"] = data["client_id"]
         os.environ["SPOTIPY_CLIENT_SECRET"] = data["client_secret"]
-        os.environ["SPOTIPY_REDIRECT_URI"] = r'http://localhost:8080'
+        os.environ["SPOTIPY_REDIRECT_URI"] = data['redirect_uri']
 
         return None
 
