@@ -76,7 +76,8 @@ def create_app():
 
         sp = spotipy.Spotify(auth_manager=auth_manager)        
         results = moods.get_all_songs(sp)
-        return {"data": results}
+        response = jsonify(results)
+        return response
 
     return app
 
