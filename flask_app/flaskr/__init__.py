@@ -45,7 +45,8 @@ def create_app():
 
         if not auth_manager.validate_token(cache_handler.get_cached_token()):
             # Step 2. Display sign in link when no token
-            auth_url = {"data": auth_manager.get_authorize_url()}
+            auth_url = {"auth_url": auth_manager.get_authorize_url(),
+                        "session_id": session['uuid']}
             response = jsonify(auth_url)
             response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
             return response
