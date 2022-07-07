@@ -11,7 +11,7 @@ import { Card, Row, Image, Link, Col, Text } from '@nextui-org/react';
  *  link: string
  */
 
-const SongCard = ({ title, artist, albumCover, alt, songLength, link }) => {
+const SongCard = ({ title, artist, albumCover, alt, songLength, link, type }) => {
   return (
     <Card
       variant="shadow"
@@ -36,7 +36,7 @@ const SongCard = ({ title, artist, albumCover, alt, songLength, link }) => {
           />
           <Col css={{ ml: 5 }}>
             <Text css={{ fontSize: '$xl', fontWeight: 'bold', py: 0, my: 0 }}>
-              The Scientist
+              {title}
             </Text>
             <Text
               css={{ fontSize: '$base', fontWeight: 'light', py: 0, my: 0 }}
