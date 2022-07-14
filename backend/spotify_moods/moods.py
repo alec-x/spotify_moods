@@ -13,14 +13,15 @@ import umap
 import warnings
 warnings.filterwarnings('ignore')
 
+from .data import spotify_image, spotify_song
 
 def export_client_id(secrets_path: str) -> None:
         with open(secrets_path, 'r') as f:
             data = json.load(f)
 
-        os.environ["SPOTIPY_CLIENT_ID"] = data["client_id"]
-        os.environ["SPOTIPY_CLIENT_SECRET"] = data["client_secret"]
-        os.environ["SPOTIPY_REDIRECT_URI"] = data['redirect_uri']
+        os.environ["SPOTIFY_CLIENT_ID"] = data["client_id"]
+        os.environ["SPOTIFY_CLIENT_SECRET"] = data["client_secret"]
+        os.environ["SPOTIFY_REDIRECT_URI"] = data['redirect_uri']
 
         return None
 
@@ -36,10 +37,18 @@ def get_all_songs(sp_client: spotipy.Spotify) -> list[dict]:
         print(f"Processing batch: {offset}/{num_songs_total}", end='\r')
         curr_batch = sp_client.current_user_saved_tracks(limit=50, offset=offset)['items']
         for track in curr_batch:
-            res = track['track']
-            del res['available_markets']
-            del res['album']['available_markets']
-            results.append(res)
+            track = track['track']
+            curr_artists = [artist['name'] for artist in track['artists']]
+            curr_images = [spotify_image(img['height'], img['width'], img['url']) for img in track['album']['images']]
+
+            curr_song = spotify_song(track['id'], 
+                                     track['name'], 
+                                     curr_artists, 
+                                     track['album']['id'], 
+                                     track['href'], 
+                                     track['uri'],
+                                     curr_images)
+            results.append(curr_song)
             
         offset += 50
     
