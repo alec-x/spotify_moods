@@ -1,5 +1,4 @@
 
-import json
 import math
 import numpy as np
 import os
@@ -8,23 +7,15 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 from sklearn.manifold import TSNE
 
-import spotipy
 import umap
 import warnings
+
+
 warnings.filterwarnings('ignore')
 
 from .data import spotify_image, spotify_song
 
-def export_client_id(secrets_path: str) -> None:
-        with open(secrets_path, 'r') as f:
-            data = json.load(f)
-
-        os.environ["SPOTIFY_CLIENT_ID"] = data["client_id"]
-        os.environ["SPOTIFY_CLIENT_SECRET"] = data["client_secret"]
-        os.environ["SPOTIFY_REDIRECT_URI"] = data['redirect_uri']
-
-        return None
-
+"""
 def get_all_songs(sp_client: spotipy.Spotify) -> list[dict]:
 
     results = []
@@ -133,3 +124,4 @@ def create_playlist_for_user(sp_client: spotipy.Spotify, playlist_name: str, use
     playlist_results = sp_client.user_playlist_add_tracks(username, playlist['id'], song_ids)
 
     return playlist_results
+"""
