@@ -1,18 +1,20 @@
 services:
   backend:
-    build: ./backend
+    build: 
+      context: ./backend
     container_name: spotify-moods-backend
     command: uvicorn app:app --host 0.0.0.0 --port 80 --reload
     ports:
       - 8000:80
     volumes:
-      - .:/backend
-    
+      - ./backend:/backend
+  
   frontend:
-    build: ./app
+    build: 
+      context: ./app
     container_name: spotify-moods-frontend
     command: npm start
     ports:
       - 3000:3000
     volumes:
-      - .:/frontend  
+      - ./app:/frontend  
