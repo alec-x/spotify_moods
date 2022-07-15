@@ -1,12 +1,25 @@
-import spotify_moods.auth as auth
-from spotify_moods.data import spotify_song, spotify_image
 from fastapi import FastAPI, HTTPException, Response
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+
+import logging
 from logging.config import dictConfig
 from log_conf import log_config
-import logging
+
+import spotify_moods.auth as auth
+from spotify_moods.data import spotify_song, spotify_image
 
 dictConfig(log_config)
 app = FastAPI(debug=True)
+origins = ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 logger = logging.getLogger('foo-logger')
 
 @app.get("/api/")
@@ -19,12 +32,13 @@ def sign_in() -> Response:
     logger.debug('ran sign-in')
     scope = 'user-library-read playlist-modify-private'
     query_str, state = auth.get_auth_url(scope, 'default')
-    print(query_str)
+
     query = {
         'auth_url' : query_str,
         'session_id': state 
         }
-    return Response("query")
+        
+    return JSONResponse(query)
 """
 @app.get("/api/all-songs", response_model=spotify_song)
 def read_item(channel_id: str) -> list[spotify_song]:

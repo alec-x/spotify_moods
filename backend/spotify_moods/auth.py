@@ -10,7 +10,7 @@ def _export_secrets(secrets_path: str) -> None:
         return data
 
 def get_auth_url(scope: str, user: str) -> None:
-    scope = 'user-library-read playlist-modify-private'
+    
     # username = 'alecxu' # use this for user-state redis later
     state = str(uuid.uuid4())
 
