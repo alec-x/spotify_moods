@@ -18,3 +18,13 @@ services:
       - 3000:3000
     volumes:
       - ./app:/frontend  
+  
+  redis:
+    image: redis:7.0.3
+    container_name: spotify-moods-redis
+    restart: always
+    command: redis-server --save 60 1 --loglevel warning
+    ports:
+      - 6379:6379
+    volumes:
+      - ./cache:/data

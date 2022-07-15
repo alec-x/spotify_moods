@@ -162,3 +162,4 @@ yarn-error.log*
 flask_app/.flask_session/
 flask_app/.spotify_caches/
 *.cache
+cache/
