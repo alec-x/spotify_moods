@@ -1,4 +1,3 @@
-import stat
 from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, RedirectResponse
@@ -8,6 +7,7 @@ from logging.config import dictConfig
 from log_conf import log_config
 
 import redis
+import requests
 
 import spotify_moods.auth as auth
 from spotify_moods.data import spotify_song, spotify_image
@@ -35,10 +35,10 @@ def read_root() -> Response:
 def sign_in() -> Response:
     logger.debug('ran sign-in')
     scope = 'user-library-read playlist-modify-private'
-    query_str, state = auth.get_auth_url(scope, 'default')
+    auth_url, state = auth.get_sign_in_url(scope, 'default')
 
     query = {
-        'auth_url' : query_str,
+        'auth_url' : auth_url,
         'state': state 
         }
         
@@ -48,10 +48,13 @@ def sign_in() -> Response:
 def sign_in_callback(state: str = None, code: str = None, error: str = None):
     if error:
         raise HTTPException(status_code=403, detail='Spotify Authorization Rejected')
-        
-    db = redis.Redis(host='redis', port=6379, decode_responses=True)
-    db.mset({state: code})
+
+    code = auth.get_auth_url()
+    logger.debug(code)
+    #db = redis.Redis(host='redis', port=6379, decode_responses=True)
+    #db.mset({state: code})
     return RedirectResponse(r'http://localhost:3000/search')
+    
     
 """
 @app.get("/api/all-songs", response_model=spotify_song)

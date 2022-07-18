@@ -5,3 +5,4 @@ scipy
 sklearn
 umap
 redis
+requests
