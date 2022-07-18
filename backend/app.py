@@ -1,3 +1,4 @@
+import stat
 from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, RedirectResponse
@@ -38,22 +39,18 @@ def sign_in() -> Response:
 
     query = {
         'auth_url' : query_str,
-        'session_id': state 
+        'state': state 
         }
         
     return JSONResponse(query)
 
 @app.get('/api/sign-in-callback')
 def sign_in_callback(state: str = None, code: str = None, error: str = None):
-
-    query = {
-        'state': state,
-        'code': code,
-        'error': error
-    }
-    r = redis.Redis()
-    r.mset({state: code})
-    logger.debug(r.get(state))
+    if error:
+        raise HTTPException(status_code=403, detail='Spotify Authorization Rejected')
+        
+    db = redis.Redis(host='redis', port=6379, decode_responses=True)
+    db.mset({state: code})
     return RedirectResponse(r'http://localhost:3000/search')
     
 """
