@@ -20,6 +20,7 @@ def get_auth_url(scope: str, user: str) -> None:
         'client_id': secrets["client_id"],
         'scope': scope,
         'redirect_uri': secrets["redirect_uri"],
-        'state': state}
+        'state': state,
+        'show_dialog' : True}
     params = urlencode(params)
     return 'https://accounts.spotify.com/authorize?' + params, state

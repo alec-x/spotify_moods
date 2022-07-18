@@ -1,13 +1,16 @@
 from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 
 import logging
 from logging.config import dictConfig
 from log_conf import log_config
 
+import redis
+
 import spotify_moods.auth as auth
 from spotify_moods.data import spotify_song, spotify_image
+
 
 dictConfig(log_config)
 app = FastAPI(debug=True)
@@ -39,6 +42,20 @@ def sign_in() -> Response:
         }
         
     return JSONResponse(query)
+
+@app.get('/api/sign-in-callback')
+def sign_in_callback(state: str = None, code: str = None, error: str = None):
+
+    query = {
+        'state': state,
+        'code': code,
+        'error': error
+    }
+    r = redis.Redis()
+    r.mset({state: code})
+    logger.debug(r.get(state))
+    return RedirectResponse(r'http://localhost:3000/search')
+    
 """
 @app.get("/api/all-songs", response_model=spotify_song)
 def read_item(channel_id: str) -> list[spotify_song]:
