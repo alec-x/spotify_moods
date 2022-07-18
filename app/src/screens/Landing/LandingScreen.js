@@ -14,10 +14,10 @@ const LandingScreen = () => {
   };
 
   if (data) {
-    window.open(data.data, '_self');
+    console.log('sign-in:', data, loading, error);
+    window.open(data.auth_url, '_self');
     window.focus();
   }
-  console.log('sign-in:', data, loading, error);
 
   return (
     <Container md css={{ height: '100vh' }}>
