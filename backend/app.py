@@ -49,8 +49,9 @@ def sign_in_callback(state: str = None, code: str = None, error: str = None):
     if error:
         raise HTTPException(status_code=403, detail='Spotify Authorization Rejected')
 
-    code = auth.get_auth_url()
-    logger.debug(code)
+    code = auth.post_request_auth_token()
+    logger.debug(code.headers)
+    logger.debug(code.text)
     #db = redis.Redis(host='redis', port=6379, decode_responses=True)
     #db.mset({state: code})
     return RedirectResponse(r'http://localhost:3000/search')

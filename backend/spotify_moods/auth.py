@@ -29,20 +29,21 @@ def get_sign_in_url(scope: str, user: str) -> str:
     params = urlencode(params)
     return 'https://accounts.spotify.com/authorize?' + params, state
 
-def get_auth_url() -> requests.post:
+def post_request_auth_token() -> requests.post:
     secrets = _export_secrets('id.json')
     url = 'https://accounts.spotify.com/api/token?'
-    params = {    
+    data = {    
         'code': 'code',
         'redirect_uri': secrets["redirect_uri"],
         'grant_type ': 'authorization_code'}
     
     client_id = secrets['client_id']
     client_secret = secrets['client_secret']
+    client_creds = f'{client_id}:{client_secret}'.encode()
+    auth_str =  base64.b64encode(client_creds)
 
     headers = {
-        'Authorization': f'Basic {client_id}:{base64.b64encode(client_secret)}',
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Authorization': f'Basic {auth_str.decode()}'
     }
-    post_request = urlencode(url, data=json.dumps(params), headers=headers, )
+    post_request = requests.post(url, data=urlencode(data), headers=headers)
     return post_request
