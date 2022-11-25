@@ -28,12 +28,14 @@ logger = logging.getLogger('foo-logger')
 
 @app.get("/api/")
 def read_root() -> Response:
+    logger.debug('running /api/')
     logger.debug('ran /api/')
     return Response("The server is running.")
+    
 
 @app.get('/api/sign-in/') 
 def sign_in() -> Response:
-    logger.debug('ran sign-in')
+    logger.debug('running sign-in')
     scope = 'user-library-read playlist-modify-private'
     auth_url, state = auth.get_sign_in_url(scope, 'default')
 
@@ -41,19 +43,19 @@ def sign_in() -> Response:
         'auth_url' : auth_url,
         'state': state 
         }
-        
+    logger.debug('ran /api/sign-in')
     return JSONResponse(query)
 
 @app.get('/api/sign-in-callback')
 def sign_in_callback(state: str = None, code: str = None, error: str = None):
+    logger.debug('running /api/sign-in-callback')
     if error:
         raise HTTPException(status_code=403, detail='Spotify Authorization Rejected')
 
-    code = auth.post_request_auth_token()
-    logger.debug(code.headers)
-    logger.debug(code.text)
-    #db = redis.Redis(host='redis', port=6379, decode_responses=True)
-    #db.mset({state: code})
+    post_req = auth.post_request_auth_token(code)
+    db = redis.Redis(host='redis', port=6379, decode_responses=True)
+    db.mset({state: post_req["access_token"]})
+    logger.debug('ran /api/sign-in-callback')
     return RedirectResponse(r'http://localhost:3000/search')
     
     
