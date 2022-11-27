@@ -63,21 +63,22 @@ def sign_in() -> Response:
     return JSONResponse(query)
 
 @app.get('/api/sign-in-callback')
-def sign_in_callback(state: str = None, code: str = None, error: str = None):
+def sign_in_callback(state: str = None, code: str = None, error: str = None) -> Response:
     logger.debug('running /api/sign-in-callback')
     if error:
         raise HTTPException(status_code=403, detail='Spotify Authorization Rejected')
 
-    post_req = auth.post_request_auth_token(code)
-    db = redis.Redis(host='redis', port=6379, decode_responses=True)
+    post_req = smoods_auth.post_request_auth_token(code)
+    logger.debug(state)
     db.mset({state: post_req["access_token"]})
     logger.debug('ran /api/sign-in-callback')
     return RedirectResponse(r'http://localhost:3000/search')
     
     
-"""
-@app.get("/api/all-songs", response_model=spotify_song)
-def read_item(channel_id: str) -> list[spotify_song]:
-    songs = moods.get_all_songs()
+@app.get("/api/all-songs", response_model=List[spotify_song])
+def get_all_songs(state: str) -> List[spotify_song]:
+    token = get_token(state, db)
+    songs = smoods_api.get_all_songs(token)
+    logger.debug(len(songs))
     return songs
-"""
+
