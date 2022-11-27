@@ -1,17 +1,62 @@
 
 import warnings
-
-
-warnings.filterwarnings('ignore')
-
+warnings.filterwarnings("ignore")
 from .data import spotify_image, spotify_song
+import requests
+import json
 
-def get_audio_features(sp_client: spotipy.Spotify, uris: list[str]) -> list[dict]:
-    offset = 0
-    batch_size = 100
-    num_songs_total = sp_client.current_user_saved_tracks(limit=1)['total']
+def _form_headers(token: str):
+    # common to most spotify endpoints
+    headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+    }
+    return headers
 
+def get_song_count(token: str) -> int:
+    QUERY_URL = "https://api.spotify.com/v1/me/tracks"    
+    headers = _form_headers(token)
+    params = {
+        "limit": 1
+    }
+    query = requests.get(QUERY_URL, params, headers=headers)
+    query = json.loads(query.text)
+    return query["total"]
+
+def get_all_songs(token: str) -> list[dict]:
+    QUERY_URL = "https://api.spotify.com/v1/me/tracks"
+    BATCH = 50
+    headers = _form_headers(token)
+    songs_total = get_song_count(token)
     results = []
+    
+    # Information returned in BATCHes in dictionary
+    params = {
+        "limit": BATCH,
+        "offset": offset
+    }
+    offset = 0
+    while offset < songs_total:
+        query = requests.get(QUERY_URL, params, headers=headers)
+        curr_BATCH = json.loads(query.text)["items"]
+        for track in curr_BATCH:
+            track = track["track"]
+            curr_artists = [artist["name"] for artist in track["artists"]]
+            curr_images = [spotify_image(img["height"], img["width"], img["url"]) for img in track["album"]["images"]]
+
+            curr_song = spotify_song(track["id"], 
+                                     track["name"], 
+                                     curr_artists, 
+                                     track["album"]["id"], 
+                                     track["href"], 
+                                     track["uri"],
+                                     curr_images)
+            results.append(curr_song)
+        offset += BATCH
+        params["offset"] = offset
+    
+    return results
 
     while offset < num_songs_total:
         # compile list to give query

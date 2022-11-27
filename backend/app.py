@@ -7,11 +7,12 @@ from logging.config import dictConfig
 from log_conf import log_config
 
 import redis
-import requests
 
-import spotify_moods.auth as auth
+
+import spotify_moods.auth as smoods_auth
+import spotify_moods.api as smoods_api
 from spotify_moods.data import spotify_song, spotify_image
-
+from typing import List
 
 dictConfig(log_config)
 app = FastAPI(debug=True)
