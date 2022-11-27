@@ -53,7 +53,7 @@ def read_root() -> Response:
 def sign_in() -> Response:
     logger.debug('running sign-in')
     scope = 'user-library-read playlist-modify-private'
-    auth_url, state = auth.get_sign_in_url(scope, 'default')
+    auth_url, state = smoods_auth.get_sign_in_url(scope)
 
     query = {
         'auth_url' : auth_url,
