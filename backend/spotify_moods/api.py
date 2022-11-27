@@ -32,11 +32,11 @@ def get_all_songs(token: str) -> list[dict]:
     results = []
     
     # Information returned in BATCHes in dictionary
+    offset = 0
     params = {
         "limit": BATCH,
         "offset": offset
     }
-    offset = 0
     while offset < songs_total:
         query = requests.get(QUERY_URL, params, headers=headers)
         curr_BATCH = json.loads(query.text)["items"]
