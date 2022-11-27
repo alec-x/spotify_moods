@@ -26,6 +26,21 @@ app.add_middleware(
 )
 
 logger = logging.getLogger('foo-logger')
+db = redis.Redis(host='redis', port=6379, decode_responses=True)
+
+def get_token(state: str, db: redis.Redis):
+    token = db.mget(state)
+    if len(token) > 1:
+        logger.debug("multiple tokens found for state")
+        return None
+
+    elif len(token) == 0:
+        logger.debug("No token found for state")
+        return None
+
+    else:
+        return token[0]
+        
 
 @app.get("/api/")
 def read_root() -> Response:
