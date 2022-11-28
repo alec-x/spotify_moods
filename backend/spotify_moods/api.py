@@ -75,7 +75,7 @@ def get_audio_features(token: str, ids: list[str]) -> list[dict]:
         query = requests.get(QUERY_URL, params, headers=headers)
         curr_features = json.loads(query.text)["audio_features"]
         # associate query result with existing results dictionary
-        keys_i_hate = ["id", "type", "uri", "track_href", "analysis_url", "duration_ms", "time_signature"]
+        keys_i_hate = ["id", "type", "uri", "track_href", "analysis_url", "duration_ms"]
         for i in range(curr_size):
             for key in keys_i_hate:
                 del curr_features[i][key]
