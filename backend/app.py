@@ -69,8 +69,8 @@ def sign_in_callback(state: str = None, code: str = None, error: str = None) -> 
         raise HTTPException(status_code=403, detail='Spotify Authorization Rejected')
 
     post_req = smoods_auth.post_request_auth_token(code)
-    logger.debug(state)
-    db.mset({state: post_req["access_token"]})
+    # expiry set 1 minute before spotify api rejects it
+    db.setex(state, 3540, post_req["access_token"])
     logger.debug('ran /api/sign-in-callback')
     return RedirectResponse(r'http://localhost:3000/search')
     
